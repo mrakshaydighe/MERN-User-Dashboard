@@ -10,13 +10,22 @@ const UsersPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('http://localhost:4000/api/users')
-            setUsers(response.data)
+            const response = await axios.get('http://localhost:4000/api/users');
+            setUsers(response.data);
         };
 
         fetchData();
-    }, [])
+    }, []);
 
+    const deletHandler = async(userID)=>{
+        await axios.delete(`http://localhost:4000/api/users/${userID}`)
+        .then((response)=>{
+            console.log(response)
+            setUsers((prevUser)=>prevUser.filter((user)=>user._id !== userID))
+        }).catch((error)=>{
+            console.log(error);
+        })
+    }
     return (
         <div className='userTable'>
             <Link to={"/add"} className='addButton'> Add user</Link>
@@ -38,7 +47,7 @@ const UsersPage = () => {
                                 <td>{user.fname} {user.lname}</td>
                                 <td>{user.email}</td>
                                 <td className='actionButtons'>
-                                    <button>Delete</button>
+                                    <button onClick={()=>deletHandler(user._id)}>Delete</button>
                                     <Link to={`/update/`+user._id}>Update</Link>
                                 </td>
                             </tr>

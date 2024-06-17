@@ -3,7 +3,7 @@ import { create, deletUser, getAllUsers, getUser, updateUser } from "../controll
 
 
 
-const route = express.Router()
+const route = express.Router();
 
 
 route.post("/create",create);

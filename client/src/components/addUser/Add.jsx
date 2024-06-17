@@ -13,23 +13,23 @@ const Add = () => {
         password:""
     })
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const inputHandler = (e)=>{
-        const {name,value} = e.target
-        setUser({...user,[name]:value})
-        console.log(user)
-    }
+        const {name,value} = e.target;
+        setUser({...user,[name]:value});
+        console.log(user);
+    };
 
     const submitHandler = async(e)=>{
-         e.preventDefault()
+         e.preventDefault();
          await axios.post('http://localhost:4000/api/create',user)
          .then((response)=>{
-            console.log(response.data)
-            navigate('/')
+            console.log(response.data);
+            navigate('/');
          }).catch((error)=>{
-            console.log(error)
+            console.log(error);
          })
-    }
+    };
 
     return (
         <div className='addUser'>

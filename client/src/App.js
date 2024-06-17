@@ -1,4 +1,3 @@
-
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './App.css';
 import UsersPage from './components/getUser/UsersPage';
@@ -6,7 +5,6 @@ import Add from './components/addUser/Add';
 import Update from './components/UpdateUser/Update';
 
 function App() {
-
   const route = createBrowserRouter([
     {
       path:'/',
@@ -21,7 +19,7 @@ function App() {
       element:<Update/>
     },
     
-  ])
+  ]);
   return (
     <>
       <RouterProvider router={route}></RouterProvider>

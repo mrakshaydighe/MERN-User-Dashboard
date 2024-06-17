@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link,useParams,useNavigate } from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
 
 import "./Update.css"
 
@@ -26,7 +26,7 @@ const Update = () => {
         .then((response)=>{
             setUser(response.data)
         })
-    },[id])
+    },[id]);
 
     const submitHandler = async(e)=>{
         e.preventDefault()
@@ -37,7 +37,8 @@ const Update = () => {
         }).catch((error)=>{
            console.log(error)
         })
-    }
+    };
+
     return (
         <div className='updateUser'>
 
@@ -49,14 +50,17 @@ const Update = () => {
                     <label htmlFor='fname'>First Name</label>
                     <input type="text" onChange={inputeChangeHandler} value={user.fname} id='fname' name='fname' autoComplete='off' placeholder='First Name' />
                 </div>
+
                 <div className='inputGroup'>
                     <label htmlFor='lname'>Last Name</label>
                     <input type="text" onChange={inputeChangeHandler} value={user.lname} id='lname' name='lname' autoComplete='off' placeholder='Last Name' />
-                </div>
+                </div> 
+
                 <div className='inputGroup'>
                     <label htmlFor='email'>Email</label>
                     <input type="email" onChange={inputeChangeHandler} value={user.email} id='email' name='email' autoComplete='off' placeholder='Email' />
-                </div>
+                </div> 
+
                 <div className='inputGroup'>
                     <button type="submit">Update USER</button>
                 </div>
