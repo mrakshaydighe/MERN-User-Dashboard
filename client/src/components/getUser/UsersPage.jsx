@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useState ,useEffect } from 'react';
 import "./usersPage.css"
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 const UsersPage = () => {
+    const [users, setUsers] = useState([]);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get('http://localhost:4000/api/users')
+            setUsers(response.data)
+        };
+
+        fetchData();
+    }, [])
+
     return (
         <div className='userTable'>
-            <Link to={"/add"} className='addButton'> Add user</Link> 
+            <Link to={"/add"} className='addButton'> Add user</Link>
             <table border={1} cellPadding={10} cellSpacing={0}>
                 <thead>
                     <tr>
@@ -17,17 +30,23 @@ const UsersPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Akshay</td>
-                        <td>akdjsh</td>
-                        <td className='actionButtons'>
-                            <button>Delete</button>
-                            <Link to={"/update"}>Update</Link>
-                        </td>
-                    </tr>
+                    {
+                        users.map((user, index) => {
+                            return(
+                                <tr key={user._id}>
+                                <td>{index + 1}</td>
+                                <td>{user.fname} {user.lname}</td>
+                                <td>{user.email}</td>
+                                <td className='actionButtons'>
+                                    <button>Delete</button>
+                                    <Link to={`/update/`+user._id}>Update</Link>
+                                </td>
+                            </tr>
+                            )
+                        })
+                    }
                 </tbody>
-            </table>           
+            </table>
         </div>
     );
 }

@@ -22,7 +22,7 @@ export const getAllUsers = async(req,res)=>{
     try {
         const users = await userModel.find()
         if (!users){
-            return res.status(404).json({msg:`users not founf`});
+            return res.status(404).json({msg:`users not found`});
         }        
         res.status(200).json(users);
     } catch (error) {
@@ -45,21 +45,22 @@ export const getUser = async (req,res)=>{
     }
 }
 
-export const updateUser = async(req,res)=>{
-    try {
-        const _id = req.params.id;
-        const userExits = await userModel.findByIdAndUpdate();
 
-        if(!userExits){
-          return res.status(401).json({msg:`User not found`});
-        }
+export const updateUser = async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const updatedData = await userModel.findByIdAndUpdate(_id, req.body, { new: true });
 
-        const updatedData = userExits.findByIdAndUpdate(_id,req.body,{new:true});
-        res.send(200).json(updatedData);
-    } catch (error) {
-        res.status(500).json({error:error})
+    if (!updatedData) {
+      return res.status(404).json({ msg: 'User not found' }); 
     }
-}
+
+    res.status(200).json(updatedData);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 export const deletUser = async (req, res) => {
     try {
